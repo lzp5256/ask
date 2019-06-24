@@ -9,6 +9,7 @@ namespace app\base\controller;
 
 use app\wechat\model\Token;
 use think\Exception;
+use app\lang\CN\message;
 
 class Base
 {
@@ -77,5 +78,9 @@ class Base
         return md5($data.rand(0,9).time());
     }
 
+    public function setReturnMsg($code){
+        $message = new message();
+        return ['errCode'=>$code,'errMsg' => $message::$message[$code],'data' => []];
+    }
 
 }

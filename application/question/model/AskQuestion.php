@@ -1,16 +1,14 @@
 <?php
-namespace app\qa\model;
+namespace app\question\model;
 
 use think\Model;
 
-class Qa extends Model
+class AskQuestion extends Model
 {
-    // 设置当前模型对于的数据库名称
-    protected $table = 'qa_demand';
-
+    protected $table='question';
 
     /**
-     * 查找多条问答信息
+     * 获取多条记录
      *
      * @param array $where 查询条件
      * @param string $field 查询字段 默认为全部
@@ -20,32 +18,46 @@ class Qa extends Model
      *
      * @return array
      */
-    public function selectQa($where,$offset=0,$num=1,$field='*',$order='id desc')
+    public function selectAll($where,$offset=0,$num=1,$field='*',$order='id desc')
     {
         return $this->where($where)->field($field)->order($order)->page("$offset,$num")->select();
 
     }
 
     /**
-     * 查询一条问答信息
+     * 获取一条记录
      *
      * @param $where
      * @param $field
      * @return array|false|\PDOStatement|string|Model
      */
-    public function findQa($where,$field='*')
+    public function findOne($where,$field='*')
     {
         return $this->where($where)->field($field)->find();
+
     }
 
     /**
-     * add qa
+     * 添加一条记录
      * @param $data
      * @return mixed
      */
-    public function addQa($data)
+    public function add($data)
     {
         $this->data($data);
         return $this->save();
+    }
+
+    /**
+     * 更新
+     *
+     * @param $where
+     * @param $data
+     *
+     * @return false|int
+     */
+    public function saveOne($where,$data)
+    {
+        return $this->where($where)->update($data);
     }
 }
