@@ -18,7 +18,7 @@ class AskQuestion extends Model
      *
      * @return array
      */
-    public function selectAll($where,$offset=0,$num=1,$field='*',$order='id desc')
+    public function selectAll($where,$offset=0,$num=1,$field='*',$order='qid desc')
     {
         return $this->where($where)->field($field)->order($order)->page("$offset,$num")->select();
 
@@ -59,5 +59,21 @@ class AskQuestion extends Model
     public function saveOne($where,$data)
     {
         return $this->where($where)->update($data);
+    }
+
+    /**
+     * 数据累加/减更新
+     */
+    public function setUpdate($where,$type,$key,$value = 1){
+        switch ($type){
+            case 'Inc':
+                return $this->where($where)->setInc($key,$value);
+                break;
+            case 'Dec':
+                return $this->where($where)->setDec($key,$value);
+                break;
+            default:
+                return false;
+        }
     }
 }

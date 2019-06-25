@@ -25,7 +25,7 @@ class User extends  Model
      *
      * @return array
      */
-    public function selectUser($where,$offset=0,$num=1,$field='*',$order='id desc')
+    public function selectUser($where,$offset=0,$num=1,$field='*',$order='uid desc')
     {
         return $this->where($where)->field($field)->order($order)->limit("$offset,$num")->select();
     }

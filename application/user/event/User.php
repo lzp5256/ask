@@ -14,8 +14,8 @@ class User extends Base {
 
     public function getAllUserList(){
         $uid = $this->data['uid'];
-        $where['status'] = 1;
-        $where['id'] = ['IN',$uid];
+        $where['state'] = 1;
+        $where['uid'] = ['IN',$uid];
         $model = new UserModel();
         $data = $model->selectUser($where,0,count($uid));
         if(empty($data)){
@@ -23,23 +23,24 @@ class User extends Base {
         }
         $arr = [];
         foreach ($data as $k => $v){
-            $arr[$v['id']] = [
-                'name' => base64_decode($v['name']),
-                'url'  => $v['head_portrait_url']
+            $arr[$v['uid']] = [
+                'name' => $v['name'],
             ];
         }
         return $arr;
     }
 
-    public function test()
-    {
-        return 'test';
-    }
-
-    public function getUserToken()
-    {
-        var_dump($this->data);die;
-    }
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
